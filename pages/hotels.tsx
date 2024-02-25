@@ -2,22 +2,9 @@ import Link from 'next/link';
 import React, { FC } from 'react';
 import { getAllHotels, getAllContentModel } from '../src/utils';
 import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer';
-type Price = {
-  value: string;
-  currency: string;
-  symbol: string;
-};
-type hotel = {
-  name: string;
-  rating: number;
-  price: Price;
-  images: string[];
-  description: string;
-  country: string;
-  city: string;
-  startDate: string;
-  endDate: string;
-};
+import type { hotel } from '../types/hotel';
+import Card from '@/components/Card';
+
 type Props = {
   hotels: hotel[];
 };
@@ -59,6 +46,7 @@ export const getServerSideProps = async () => {
     });
 
     return {
+      id: response.sys.id,
       name: response.fields.name,
       rating: response.fields.rating,
       description: documentToPlainTextString(response.fields.description),
@@ -70,7 +58,7 @@ export const getServerSideProps = async () => {
       images,
     };
   });
-  console.log('list of hotel field', hotels);
+  console.log('list of hotel field', responses[0]);
 
   return {
     props: { hotels },
