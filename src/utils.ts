@@ -15,3 +15,26 @@ export const getAllContentModel = async () => {
     .then((response) => response.items)
     .catch(console.error);
 };
+
+export const fetchHotelReviews = async (hotelId: string) => {
+  try {
+    const entries = await client.getEntries({
+      content_type: 'review',
+      'fields.hotel.sys.id': hotelId
+    });
+    console.log('review', entries.items[0])
+    // Process the fetched reviews
+    const reviews = entries.items.map(item => ({
+      id: item.sys.id,
+      // reviewerName: item.fields.reviewerName,
+      // reviewText: item.fields.reviewText,
+      // rating: item.fields.rating,
+      // Add more fields as needed
+    }));
+
+    return reviews;
+  } catch (error) {
+    console.error('Error fetching hotel reviews:', error);
+    return [];
+  }
+};
