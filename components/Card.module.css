@@ -1,6 +1,6 @@
 .card {
   display: flex;
-  height: 200px;
+  height: 245px;
   border: 1px solid #382d2d;
   border-radius: 8px;
   overflow: hidden;
@@ -12,8 +12,61 @@
 .cardImg {
   width: 30%;
   height: auto;
+  position: relative;
+  overflow: hidden;
 }
 
 .cardBody {
   width: 70%;
+  padding: 20px 25px 20px 25px
+}
+
+.description {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Number of lines to show */
+  -webkit-box-orient: vertical;
+  padding-top: 15px;
+}
+.button{
+  display: flex;
+  justify-content: space-between;
+  padding-top: 16px;
+  align-items: center;
+}
+
+.priceContainer{
+  display: flex;
+  justify-content: space-between;
+  width :auto;
+  margin-top: 10px;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+}
+.price{
+  font-size: 20px;
+  font-weight: bold;
+  
+}
+.date{
+  font-size: 12px;
+  font-weight: bold;
+  color: #382d2d;
+}
+
+.hotelName {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.location{
+  font-size: 12px;
+  font-weight: bold;
+  color: #382d2d;
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
 }
