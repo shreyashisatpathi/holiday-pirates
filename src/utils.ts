@@ -1,3 +1,4 @@
+import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer';
 import { createClient } from 'contentful';
 const client = createClient({
   space: 'gyfunrv4a4ak',
@@ -5,7 +6,7 @@ const client = createClient({
 });
 
 export const getAllHotels = async () => {
-  const response = await client.getEntries({content_type:'hotel'});
+  const response = await client.getEntries({ content_type: 'hotel' });
   return response.items;
 };
 
@@ -20,16 +21,14 @@ export const fetchHotelReviews = async (hotelId: string) => {
   try {
     const entries = await client.getEntries({
       content_type: 'review',
-      'fields.hotel.sys.id': hotelId
+      'fields.hotel.sys.id': hotelId,
     });
-    console.log('review', entries.items[0])
-    // Process the fetched reviews
-    const reviews = entries.items.map(item => ({
-      id: item.sys.id,
-      // reviewerName: item.fields.reviewerName,
-      // reviewText: item.fields.reviewText,
-      // rating: item.fields.rating,
-      // Add more fields as needed
+
+    const reviews = entries.items.map((item) => ({
+      // id: item.sys.id,
+      reviewerName: item.fields?.customer?.fields.firstName + ' ' + item.fields.customer?.fields.lastName,
+      reviewText: documentToPlainTextString(item.fields.comment),
+      feedback: item.fields.feedback
     }));
 
     return reviews;
