@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { fetchHotelReviews } from '@/src/utils';
 import Review from './Review';
 import Rating from './Rating';
+import Button from './Button';
 
 type Props = {
   hotel: hotel;
@@ -22,12 +23,16 @@ const Card: FC<Props> = ({ hotel }) => {
 
   return (
     <>
-      <div className={classes.card}>
+      <div
+        className={`${classes.card} ${
+          !showReviews ? classes.cardWIthoutBorder : ''
+        }`}
+      >
         <div className={classes.cardImg}>
           <Image
             src={'http:' + hotel.images[0]}
             fill
-            objectFit='cover'
+            objectFit="cover"
             alt="HotelName"
           />
         </div>
@@ -41,15 +46,16 @@ const Card: FC<Props> = ({ hotel }) => {
               </div>
             </div>
             <div className={classes.rating}>
-              <Rating value={hotel.rating}/>
+              <Rating value={hotel.rating} />
             </div>
           </div>
           <div className={classes.description}>{hotel.description}</div>
           <div className={classes.button}>
             <div>
-              <button onClick={onClickHandler}>
-                {showReviews ? 'Show Reviews' : 'Hide Reviews'}
-              </button>
+              <Button
+                onClickHandler={onClickHandler}
+                name={showReviews ? 'Show Reviews' : 'Hide Reviews'}
+              />
             </div>
             <div className={classes.priceContainer}>
               <div className={classes.price}>
