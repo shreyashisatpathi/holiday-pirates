@@ -1,14 +1,59 @@
-import Head from "next/head";
-import Image from "next/image";
+import Link from 'next/link';
+import React, { FC, useState } from 'react';
+import { getAllHotels, getAllContentModel } from '../src/utils';
+import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer';
+import type { hotel } from '../types/hotel';
+import Card from '@/components/Card';
+import Button from '@/components/Button';
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 
-const inter = Inter({ subsets: ["latin"] });
+type Props = {
+  hotels: hotel[];
+};
 
-export default function Home() {
+const Home: FC<Props> = ({ hotels }) => {
+  const [showHotel, setShowHotel] = useState(false)
+
   return (
-    <>
-     <p> hello hotel </p>
-    </>
+    <div>
+      <div className={styles.container}>
+      <Button name='Load Hotel' disabled={showHotel} onClickHandler={() => setShowHotel(true)} />
+      </div>
+      {showHotel && hotels.map((hotel) => {
+        return (
+          <>
+            <Card hotel={hotel} />
+          </>
+        );
+      })}
+    </div>
   );
-}
+};
+export const getServerSideProps = async () => {
+  const responses = await getAllHotels();
+  const hotels = responses.map((response: any) => {
+    const images = response.fields.images.map((image: any) => {
+      return image.fields.file.url;
+    });
+
+    return {
+      id: response.sys.id,
+      name: response.fields.name,
+      rating: response.fields.rating,
+      description: documentToPlainTextString(response.fields.description),
+      price: response.fields.price,
+      country: response.fields.country,
+      city: response.fields.city,
+      startDate: response.fields.startDate,
+      endDate: response.fields.endDate,
+      images,
+    };
+  });
+
+
+  return {
+    props: { hotels }
+  };
+};
+export default Home;
