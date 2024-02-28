@@ -2,31 +2,36 @@ import Link from 'next/link';
 import React, { FC, useState } from 'react';
 import { getAllHotels, getAllContentModel } from '../src/utils';
 import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer';
-import type { hotel } from '../types/hotel';
+import type { hotel } from '../type/hotel';
 import Card from '@/components/Card';
 import Button from '@/components/Button';
-import { Inter } from "next/font/google";
-import styles from "@/styles/Home.module.css";
+import { Inter } from 'next/font/google';
+import styles from '@/styles/Home.module.css';
 
 type Props = {
   hotels: hotel[];
 };
 
 const Home: FC<Props> = ({ hotels }) => {
-  const [showHotel, setShowHotel] = useState(false)
+  const [showHotel, setShowHotel] = useState(false);
 
   return (
     <div>
       <div className={styles.container}>
-      <Button name='Load Hotel' disabled={showHotel} onClickHandler={() => setShowHotel(true)} />
+        <Button
+          name="Load Hotel"
+          disabled={showHotel}
+          onClickHandler={() => setShowHotel(true)}
+        />
       </div>
-      {showHotel && hotels.map((hotel) => {
-        return (
-          <>
-            <Card hotel={hotel} />
-          </>
-        );
-      })}
+      {showHotel &&
+        hotels.map((hotel) => {
+          return (
+            <>
+              <Card hotel={hotel} />
+            </>
+          );
+        })}
     </div>
   );
 };
@@ -51,9 +56,8 @@ export const getServerSideProps = async () => {
     };
   });
 
-
   return {
-    props: { hotels }
+    props: { hotels },
   };
 };
 export default Home;

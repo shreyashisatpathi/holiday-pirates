@@ -4,16 +4,13 @@ import classes from './Review.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlus, faCircleMinus } from '@fortawesome/free-solid-svg-icons';
 import { Tooltip } from 'react-tooltip';
+import { review } from '@/type/review';
 
 type Props = {
   reviews: review[];
 };
 
-type review = {
-  reviewerName: string;
-  reviewText: string;
-  feedback: string;
-};
+
 
 const handleHover = () => {
   console.log('mouse in');

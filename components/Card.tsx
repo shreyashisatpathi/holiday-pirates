@@ -1,24 +1,26 @@
 import React, { FC, useState } from 'react';
-import type { hotel } from '../types/hotel';
+import type { hotel } from '../type/hotel';
 import classes from './Card.module.css';
 import Image from 'next/image';
 import { fetchHotelReviews } from '@/src/utils';
 import Review from './Review';
 import Rating from './Rating';
 import Button from './Button';
+import { review } from '@/type/review';
 
 type Props = {
   hotel: hotel;
 };
 
+type Reviews = review[]
 const Card: FC<Props> = ({ hotel }) => {
   const [showReviews, setShowReviews] = useState(true);
-  const [reviews, setReviews] = useState([]);
+  const [reviews, setReviews] = useState<review[]>([]);
 
   const onClickHandler = async () => {
     setShowReviews(!showReviews);
-    const reviews = await fetchHotelReviews(hotel.id);
-    setReviews(reviews);
+    const reviews: review[] = await fetchHotelReviews(hotel.id);
+    setReviews(reviews)
   };
 
   return (

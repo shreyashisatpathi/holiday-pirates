@@ -1,5 +1,8 @@
+import { review } from '@/type/review';
 import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer';
-import { createClient } from 'contentful';
+import { Entry, EntrySkeletonType, createClient } from 'contentful';
+import { Document } from '@contentful/rich-text-types';
+
 const client = createClient({
   space: 'gyfunrv4a4ak',
   accessToken: 'k9P9FQJcUpHKrHX3tXrgXunRyiS3qPchtY7V61tNruE',
@@ -24,12 +27,19 @@ export const fetchHotelReviews = async (hotelId: string) => {
       'fields.hotel.sys.id': hotelId,
     });
 
-    const reviews = entries.items.map((item) => ({
-      // id: item.sys.id,
-      reviewerName: item.fields?.customer?.fields.firstName + ' ' + item.fields.customer?.fields.lastName,
-      reviewText: documentToPlainTextString(item.fields.comment),
-      feedback: item.fields.feedback
-    }));
+    const reviews: review[] = entries.items.map((item) => {
+      const comment = documentToPlainTextString(item.fields.comment as Document)
+      const customerEntry: Entry<EntrySkeletonType> = item.fields
+        .customer as Entry<EntrySkeletonType>;
+      const name =
+        customerEntry.fields.firstName + ' ' + customerEntry.fields.lastName;
+
+      return {
+        reviewerName: name,
+        reviewText: comment,
+        feedback: item.fields.feedback as string,
+      };
+    });
 
     return reviews;
   } catch (error) {
