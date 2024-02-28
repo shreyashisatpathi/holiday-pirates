@@ -1,13 +1,43 @@
+.reviewContainer {
+  border: 1px solid #382d2d;
+  border-top: none;
+  background-color: #b9b9b9;
+  border-radius: 0 0 5px 5px;
+}
+
 .review {
   display: flex;
-  border: 1px solid #382d2d;
-  background-color: #b9b9b9;
+  padding: 35px 20px;
+  position: relative;
 }
 .feedback {
   width: 10%;
-  padding: 50px 0 0 17px;
+  padding: 13px 11px 0 0;
+  text-align-last: center;
 }
 
 .content {
   width: 90%;
 }
+
+.reviewerName {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.reviewText {
+  font-size: 16px;
+  padding-top: 10px;
+}
+.review + .review::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: -webkit-fill-available;
+  margin-left: 24px;
+  margin-right: 24px;
+  height: 2px;
+  background-color: #9b9595;
+}
+

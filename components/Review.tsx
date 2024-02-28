@@ -20,13 +20,11 @@ const handleHover = () => {
 };
 
 const Review = ({ reviews }: Props) => {
-  console.log('fetch reviews', reviews);
-
   return (
-    <div>
-      {reviews.map((review) => {
+    <div className={classes.reviewContainer}>
+      {reviews.map((review, index) => {
         return (
-          <div className={classes.review}>
+          <div key={index} className={classes.review}>
             <div className={classes.feedback}>
               {review.feedback === 'positive' && (
                 <FontAwesomeIcon
@@ -53,9 +51,10 @@ const Review = ({ reviews }: Props) => {
               Positive or negative review
             </Tooltip>
             <div className={classes.content}>
-              <p>{review.reviewerName}</p>
-              <p>{review.reviewText}</p>
+              <div className={classes.reviewerName}>{review.reviewerName}</div>
+              <div className={classes.reviewText}>{review.reviewText}</div>
             </div>
+            <div></div>
           </div>
         );
       })}
