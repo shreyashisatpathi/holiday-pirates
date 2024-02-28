@@ -1,6 +1,6 @@
 .container {
   min-height: 11vh;
-  padding: 0 0.5rem;
+  padding: 25px 0 10px;
   display: flex;
   justify-content: center;
   align-items: center;
