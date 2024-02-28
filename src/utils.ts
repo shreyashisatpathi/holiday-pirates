@@ -10,6 +10,7 @@ const client = createClient({
 
 export const getAllHotels = async () => {
   const response = await client.getEntries({ content_type: 'hotel' });
+
   return response.items;
 };
 
@@ -28,7 +29,9 @@ export const fetchHotelReviews = async (hotelId: string) => {
     });
 
     const reviews: review[] = entries.items.map((item) => {
-      const comment = documentToPlainTextString(item.fields.comment as Document)
+      const comment = documentToPlainTextString(
+        item.fields.comment as Document
+      );
       const customerEntry: Entry<EntrySkeletonType> = item.fields
         .customer as Entry<EntrySkeletonType>;
       const name =
@@ -46,4 +49,17 @@ export const fetchHotelReviews = async (hotelId: string) => {
     console.error('Error fetching hotel reviews:', error);
     return [];
   }
+};
+
+export const formatDate = (dateString: string): string => {
+  const date = new Date(dateString);
+  const options: Intl.DateTimeFormatOptions = {
+    month: 'numeric',
+    day: 'numeric',
+    year: 'numeric',
+  };
+  return new Intl.DateTimeFormat('en', options)
+    .format(date)
+    .split('/')
+    .join('.');
 };

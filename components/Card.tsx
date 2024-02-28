@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import type { hotel } from '../type/hotel';
 import classes from './Card.module.css';
 import Image from 'next/image';
-import { fetchHotelReviews } from '@/src/utils';
+import { fetchHotelReviews, formatDate} from '@/src/utils';
 import Review from './Review';
 import Rating from './Rating';
 import Button from './Button';
@@ -15,11 +15,11 @@ type Props = {
 type Reviews = review[]
 const Card: FC<Props> = ({ hotel }) => {
   const [showReviews, setShowReviews] = useState(true);
-  const [reviews, setReviews] = useState<review[]>([]);
+  const [reviews, setReviews] = useState<Reviews>([]);
 
   const onClickHandler = async () => {
     setShowReviews(!showReviews);
-    const reviews: review[] = await fetchHotelReviews(hotel.id);
+    const reviews: Reviews = await fetchHotelReviews(hotel.id);
     setReviews(reviews)
   };
 
@@ -64,7 +64,7 @@ const Card: FC<Props> = ({ hotel }) => {
                 {hotel.price.value} {hotel.price.symbol}
               </div>
               <div className={classes.date}>
-                {hotel.startDate}-{hotel.endDate}
+                {formatDate(hotel.startDate)}-{formatDate(hotel.endDate)}
               </div>
             </div>
           </div>
