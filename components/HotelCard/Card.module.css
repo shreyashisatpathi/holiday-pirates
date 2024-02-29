@@ -32,7 +32,6 @@
   -webkit-line-clamp: 3; /* Number of lines to show */
   -webkit-box-orient: vertical;
   padding-top: 15px;
-  font-size: 15px;
 }
 .button {
   display: flex;

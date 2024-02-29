@@ -34,8 +34,10 @@ const Card: FC<Props> = ({ hotel }) => {
           <Image
             src={'http:' + hotel.images[0]}
             fill
-            objectFit="cover"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            style={{ objectFit: 'cover' }}
             alt="HotelName"
+            loading="lazy"
           />
         </div>
         <div className={classes.cardBody}>

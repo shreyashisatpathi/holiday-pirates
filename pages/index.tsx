@@ -5,7 +5,6 @@ import { documentToPlainTextString } from '@contentful/rich-text-plain-text-rend
 import type { hotel } from '../type/hotel';
 import Card from '@/components/HotelCard/Card';
 import Button from '@/components/Button/Button';
-import { Inter } from 'next/font/google';
 import styles from '@/styles/Home.module.css';
 
 type Props = {
@@ -26,16 +25,13 @@ const Home: FC<Props> = ({ hotels }) => {
       </div>
       {showHotel &&
         hotels.map((hotel) => {
-          return (
-            <>
-              <Card hotel={hotel} />
-            </>
-          );
+          return <Card key={hotel.id} hotel={hotel} />;
         })}
     </div>
   );
 };
-export const getServerSideProps = async () => {
+
+export const getStaticProps = async () => {
   const responses = await getAllHotels();
   const hotels = responses.map((response: any) => {
     const images = response.fields.images.map((image: any) => {
