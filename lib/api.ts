@@ -1,12 +1,8 @@
 import { review } from '@/type/review';
 import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer';
-import { Entry, EntrySkeletonType, createClient } from 'contentful';
+import { Entry, EntrySkeletonType } from 'contentful';
 import { Document } from '@contentful/rich-text-types';
-
-const client = createClient({
-  space: 'gyfunrv4a4ak',
-  accessToken: 'k9P9FQJcUpHKrHX3tXrgXunRyiS3qPchtY7V61tNruE',
-});
+import { client } from './contenful';
 
 export const getAllHotels = async () => {
   const response = await client.getEntries({ content_type: 'hotel' });

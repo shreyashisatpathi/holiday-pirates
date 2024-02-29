@@ -1,10 +1,10 @@
 import Link from 'next/link';
 import React, { FC, useState } from 'react';
-import { getAllHotels, getAllContentModel } from '../src/utils';
+import { getAllHotels, getAllContentModel } from '../lib/utils';
 import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer';
 import type { hotel } from '../type/hotel';
-import Card from '@/components/Card';
-import Button from '@/components/Button';
+import Card from '@/components/HotelCard/Card';
+import Button from '@/components/Button/Button';
 import { Inter } from 'next/font/google';
 import styles from '@/styles/Home.module.css';
 

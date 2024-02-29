@@ -1,4 +1,4 @@
-import { fetchHotelReviews } from '@/src/utils';
+import { fetchHotelReviews } from '@/lib/utils';
 import React, { useEffect, useState } from 'react';
 import classes from './Review.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -9,8 +9,6 @@ import { review } from '@/type/review';
 type Props = {
   reviews: review[];
 };
-
-
 
 const handleHover = () => {
   console.log('mouse in');
